@@ -1,5 +1,9 @@
+from threading import Thread
+
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+
+from extensions.stage.auth import verify_token
 
 params = {
     "display_name": "Stage Extension",
@@ -18,4 +22,16 @@ async def root():
 
 print("Stage extension loaded.")
 
-uvicorn.run(app, host="0.0.0.0", port=9999)
+
+def run_server(do_host=True):
+    uvicorn.run(app, host="0.0.0.0" if do_host else None, port=9999)
+
+
+def run_server_threaded():
+    t = Thread(target=run_server)
+    t.start()
+
+    return t
+
+
+run_server_threaded()
