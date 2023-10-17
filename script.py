@@ -4,6 +4,7 @@ import uvicorn
 from fastapi import FastAPI, Depends
 
 from extensions.stage.auth import verify_token
+from modules.utils import get_available_models
 
 params = {
     "display_name": "Stage Extension",
@@ -18,6 +19,16 @@ app = FastAPI()
 @app.get("/", dependencies=[Depends(verify_token)])
 async def root():
     return {"message": "Stage API is online!"}
+
+
+@app.get("/model", dependencies=[Depends(verify_token)])
+async def model():
+    res = []
+    for m in get_available_models():
+        if m != "None":
+            res.append(m)
+        # more if statements here
+    return {"models": res}
 
 
 print("Stage extension loaded.")
