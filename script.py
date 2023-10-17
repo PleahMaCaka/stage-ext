@@ -15,7 +15,7 @@ print("Stage extension loaded.")
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("/", dependencies=[Depends(verify_token)])
 async def root():
     return {"message": "Stage API is online!"}
 
