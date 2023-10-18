@@ -1,10 +1,9 @@
-from threading import Thread
-
 import uvicorn
 from fastapi import FastAPI, Depends
 
 from extensions.stage.auth import verify_token
 from extensions.stage.routers.model import router as model_router
+from threading import Thread
 
 params = {
     "display_name": "Stage Extension",
