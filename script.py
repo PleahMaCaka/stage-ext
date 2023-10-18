@@ -3,6 +3,7 @@ from fastapi import FastAPI, Depends
 
 from extensions.stage.auth import verify_token
 from extensions.stage.routers.model import router as model_router
+from extensions.stage.routers.instruct import router as instruct_router
 from threading import Thread
 
 params = {
@@ -15,6 +16,7 @@ print("Stage extension loaded.")
 app = FastAPI()
 
 app.include_router(model_router, prefix="/model", tags=["model"])
+app.include_router(instruct_router, prefix="/instruct", tags=["instruction_template"])
 
 
 @app.get("/", dependencies=[Depends(verify_token)])
