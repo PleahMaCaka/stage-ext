@@ -16,7 +16,7 @@ print("Stage extension loaded.")
 app = FastAPI()
 
 app.include_router(model_router, prefix="/model", tags=["model"])
-app.include_router(instruct_router, prefix="/instruct", tags=["instruction_template"])
+app.include_router(instruct_router, prefix="/inst", tags=["instruction-template"])
 
 
 @app.get("/", dependencies=[Depends(verify_token)])
